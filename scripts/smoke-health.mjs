@@ -2,8 +2,12 @@ import { pathToFileURL } from 'node:url';
 
 /** Public health contract only; never accesses personal data or financial routes. */
 export async function checkHealth(baseUrl, fetcher = fetch) {
-  const target = new URL('/api/health', baseUrl);
-  if (!['https:', 'http:'].includes(target.protocol)) throw new Error('Unsupported protocol');
+  // Validate the configured origin before constructing the fixed public endpoint.
+  // Do not allow URL userinfo, which can accidentally disclose credentials.
+  const origin = new URL(baseUrl);
+  if (!['https:', 'http:'].includes(origin.protocol)) throw new Error('Unsupported protocol');
+  if (origin.username || origin.password) throw new Error('Credentials are not allowed in health URL');
+  const target = new URL('/api/health', origin);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
