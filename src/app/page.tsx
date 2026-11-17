@@ -12,7 +12,7 @@ export default function Home() {
     headingRef.current?.focus();
   }, [profile, route]);
   function reset() { setRoute(null); setProfile(null); }
-  return <><a className="skipLink" href="#conteudo-principal">Pular para o conteúdo principal</a><main id="conteudo-principal" className="shell">
+  return <><a className="skipLink" href="#conteudo-principal">Pular para o conteúdo principal</a><main id="conteudo-principal" tabIndex={-1} className="shell">
     <header className="brand"><span className="brandIcon" aria-hidden="true">◆</span><div><strong>Plataforma Logística</strong><small>Site e aplicativo · arquitetura compartilhada</small></div></header>
     <section className="panel">
       {!profile && <><p className="eyebrow">PASSO 1</p><h1 ref={headingRef} tabIndex={-1}>Como você vai utilizar a plataforma?</h1><p className="muted">Escolha seu perfil para visualizar apenas as opções correspondentes.</p><div className="grid">{profileKeys.map(k => <button className="tile" key={k} onClick={() => setProfile(k)}><strong>{profiles[k].title}</strong><span>{profiles[k].description}</span></button>)}</div></>}
