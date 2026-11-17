@@ -14,7 +14,7 @@ export async function checkHealth(baseUrl, fetcher = fetch) {
     const response = await fetcher(target, { signal: controller.signal, redirect: 'error', headers: { accept: 'application/json' } });
     if (response.status !== 200) throw new Error('Health check returned non-200 status');
     const type = response.headers.get('content-type') ?? '';
-    if (!type.toLowerCase().includes('application/json')) throw new Error('Health check returned non-JSON response');
+    if (type.split(';', 1)[0].trim().toLowerCase() !== 'application/json') throw new Error('Health check returned non-JSON response');
     const data = await response.json();
     if (data?.status !== 'ok' || data?.service !== 'logistica-unificada') throw new Error('Health contract mismatch');
     return true;
