@@ -18,6 +18,9 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 - [x] Resposta de saúde sem cache e teste de regressão do cabeçalho HTTP (PRs #10 e #11)
 - [x] Requisições do monitor de saúde com política `cache: no-store` (PR #12)
 - [x] Testes de isolamento da rota pública: caminhos privados, credenciais e protocolos não HTTP (PR #13)
+- [x] Link de salto acessível e foco em títulos após navegação (PRs #17–#19)
+- [x] Registro de evidências públicas de filtros de fretes e contratos profissionais (PR #20; documentação, não implementação)
+- [x] Teste automatizado do catálogo para separar destinos de fretes, motoristas e ajudantes e verificar placeholders (PR #21; teste de catálogo, não jornada homologada)
 
 
 ## Não implementado ou não homologado
