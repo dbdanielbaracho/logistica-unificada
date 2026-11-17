@@ -20,3 +20,10 @@ test('health smoke rejects errors and wrong service', async () => {
 test('health smoke refuses non-http schemes', async () => {
   await assert.rejects(checkHealth('file:///tmp/secret', mock(200, 'application/json', {})), /Unsupported protocol/);
 });
+
+test('health smoke rejects misleading JSON-like content types', async () => {
+  for (const type of ['application/jsonp', 'text/application/json', 'application/json-malformed']) {
+    await assert.rejects(checkHealth('https://example.test', mock(200, type, { status: 'ok', service: 'logistica-unificada' })), /non-JSON/);
+  }
+  assert.equal(await checkHealth('https://example.test', mock(200, 'Application/JSON ; charset=UTF-8', { status: 'ok', service: 'logistica-unificada' })), true);
+});
