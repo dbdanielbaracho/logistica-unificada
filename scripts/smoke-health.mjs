@@ -11,7 +11,7 @@ export async function checkHealth(baseUrl, fetcher = fetch) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
-    const response = await fetcher(target, { signal: controller.signal, redirect: 'error', headers: { accept: 'application/json' } });
+    const response = await fetcher(target, { signal: controller.signal, redirect: 'error', cache: 'no-store', headers: { accept: 'application/json' } });
     if (response.status !== 200) throw new Error('Health check returned non-200 status');
     const type = response.headers.get('content-type') ?? '';
     if (type.split(';', 1)[0].trim().toLowerCase() !== 'application/json') throw new Error('Health check returned non-JSON response');
