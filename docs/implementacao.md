@@ -23,6 +23,10 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 - [x] Teste automatizado do catálogo para separar destinos de fretes, motoristas e ajudantes e verificar placeholders (PR #21; teste de catálogo, não jornada homologada)
 
 
+## Implementação técnica em revisão (não incorporada à main)
+
+- [ ] Módulo puro de validação de raio e destino opcionais da busca pública de fretes, fundamentado em EV-001; testes automatizados em PR separado, sem API, tela ou consulta operacional.
+
 ## Não implementado ou não homologado
 
 - [ ] Versão integral controlada do Documento Mestre no fluxo de engenharia, com rastreabilidade jornada → tela → ação → teste (issue #1)
