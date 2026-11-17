@@ -13,6 +13,12 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 - [x] Cabeçalhos defensivos de segurança HTTP e teste correspondente (PR #3)
 - [x] Smoke test de saúde com timeout, JSON esperado e redirects recusados (PR #5)
 - [x] Smoke test recusa credenciais embutidas na URL e cobre erros adicionais (PR #6)
+- [x] Testes HTTP de integração local para o monitor público, incluindo redirecionamento, JSON inválido e status 503 (PR #8)
+- [x] Validação exata de tipo MIME JSON para o monitor de saúde (PR #9)
+- [x] Resposta de saúde sem cache e teste de regressão do cabeçalho HTTP (PRs #10 e #11)
+- [x] Requisições do monitor de saúde com política `cache: no-store` (PR #12)
+- [x] Testes de isolamento da rota pública: caminhos privados, credenciais e protocolos não HTTP (PR #13)
+
 
 ## Não implementado ou não homologado
 
