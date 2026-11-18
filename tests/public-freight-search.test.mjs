@@ -44,3 +44,15 @@ test('public destination normalization trims Unicode whitespace without changing
   assert.equal(normalizePublicFreightDestination('\u00a0\u2003'), null);
   assert.equal(normalizePublicFreightDestination('São Paulo / SP'), 'São Paulo / SP');
 });
+
+test('public destination preserves meaningful interior whitespace and punctuation', () => {
+  const destination = '  São Paulo  /  SP - Campinas, SP  ';
+  assert.equal(normalizePublicFreightDestination(destination), 'São Paulo  /  SP - Campinas, SP');
+  assert.equal(destination, '  São Paulo  /  SP - Campinas, SP  ');
+});
+
+test('public radius parsing does not coerce numeric-looking text or booleans', () => {
+  for (const invalid of ['200', ' 50 ', true, false, 100n, new Number(50)]) {
+    assert.throws(() => parsePublicFreightRadiusKm(invalid), RangeError);
+  }
+});
