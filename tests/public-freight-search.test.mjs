@@ -107,3 +107,29 @@ test('documented public radius guard is strict, total for input types, and consi
     assert.equal(isDocumentedPublicFreightRadiusKm(invalid), false);
   }
 });
+
+test('public freight filter combinations keep each documented option independent', () => {
+  for (const radius of [undefined, null, 50, 100, 200]) {
+    for (const destination of [undefined, null, '  Campinas, SP  ']) {
+      const result = normalizePublicFreightSearchFilters(radius, destination);
+      assert.deepEqual(result, {
+        radiusKm: radius == null ? null : radius,
+        destination: destination == null ? null : 'Campinas, SP',
+      });
+      assert.equal(Object.isFrozen(result), true);
+    }
+  }
+});
+
+test('public freight filter composition does not coerce symbolic or boxed values', () => {
+  const noCoercion = {
+    toString() { throw new Error('unexpected conversion'); },
+    valueOf() { throw new Error('unexpected conversion'); },
+  };
+  for (const radius of [Symbol('50'), new Number(50), noCoercion]) {
+    assert.throws(() => normalizePublicFreightSearchFilters(radius, null), RangeError);
+  }
+  for (const destination of [Symbol('Campinas'), new String('Campinas'), noCoercion]) {
+    assert.throws(() => normalizePublicFreightSearchFilters(50, destination), TypeError);
+  }
+});
