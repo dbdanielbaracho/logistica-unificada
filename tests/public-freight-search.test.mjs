@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   PUBLIC_FREIGHT_RADII_KM,
+  isDocumentedPublicFreightRadiusKm,
   parsePublicFreightRadiusKm,
   normalizePublicFreightDestination,
   normalizePublicFreightSearchFilters,
@@ -94,4 +95,15 @@ test('public freight filter composition rejects invalid inputs and is immutable'
   assert.equal(Object.isFrozen(filters), true);
   assert.throws(() => { filters.radiusKm = 50; }, TypeError);
   assert.deepEqual(filters, { radiusKm: 200, destination: null });
+});
+
+test('documented public radius guard is strict, total for input types, and consistent with parser', () => {
+  for (const allowed of PUBLIC_FREIGHT_RADII_KM) {
+    assert.equal(isDocumentedPublicFreightRadiusKm(allowed), true);
+    assert.equal(parsePublicFreightRadiusKm(allowed), allowed);
+  }
+  const throwing = { valueOf() { throw new Error('unexpected coercion'); } };
+  for (const invalid of [undefined, null, '', 0, 75, -1, NaN, Infinity, '50', true, 50n, Symbol('50'), throwing, new Number(50)]) {
+    assert.equal(isDocumentedPublicFreightRadiusKm(invalid), false);
+  }
 });
