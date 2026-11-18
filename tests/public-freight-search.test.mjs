@@ -133,3 +133,25 @@ test('public freight filter composition does not coerce symbolic or boxed values
     assert.throws(() => normalizePublicFreightSearchFilters(50, destination), TypeError);
   }
 });
+
+test('public filter normalization is deterministic and idempotent for documented inputs', () => {
+  for (const radius of [undefined, null, '', 50, 100, 200]) {
+    for (const destination of [undefined, null, '', '   ', '  Campinas, SP  ', ' São Paulo / SP ']) {
+      const first = normalizePublicFreightSearchFilters(radius, destination);
+      const second = normalizePublicFreightSearchFilters(first.radiusKm, first.destination);
+      assert.deepEqual(second, first);
+      assert.deepEqual(normalizePublicFreightSearchFilters(radius, destination), first);
+      assert.equal(Object.isFrozen(first), true);
+    }
+  }
+});
+
+test('public filter normalization does not mutate input values or retain shared result state', () => {
+  const destination = '  São Paulo, SP  ';
+  const first = normalizePublicFreightSearchFilters(50, destination);
+  const second = normalizePublicFreightSearchFilters(50, destination);
+  assert.notStrictEqual(first, second);
+  assert.equal(destination, '  São Paulo, SP  ');
+  assert.deepEqual(first, { radiusKm: 50, destination: 'São Paulo, SP' });
+  assert.deepEqual(second, first);
+});
