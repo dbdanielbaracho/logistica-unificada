@@ -27,6 +27,8 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 
 - [ ] Módulo puro de validação de raio e destino opcionais da busca pública de fretes, fundamentado em EV-001; testes automatizados em PR separado, sem API, tela ou consulta operacional.
 
+- [x] Validador isolado de raio 50/100/200 km e destino opcional para busca pública de fretes, com testes automatizados (PR #24; EV-001). **Sem interface, API, dados reais ou busca operacional.**
+
 ## Não implementado ou não homologado
 
 - [ ] Versão integral controlada do Documento Mestre no fluxo de engenharia, com rastreabilidade jornada → tela → ação → teste (issue #1)
