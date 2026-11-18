@@ -4,6 +4,7 @@ import {
   PUBLIC_FREIGHT_RADII_KM,
   parsePublicFreightRadiusKm,
   normalizePublicFreightDestination,
+  normalizePublicFreightSearchFilters,
 } from '../src/lib/public-freight-search.mjs';
 
 test('public freight search accepts only documented 50/100/200 km radii', () => {
@@ -69,4 +70,28 @@ test('public filters reject boxed, symbolic and object inputs without implicit c
   for (const invalid of [Symbol('Campinas'), 100n, new String('Campinas'), objectWithThrowingCoercion]) {
     assert.throws(() => normalizePublicFreightDestination(invalid), TypeError);
   }
+});
+
+test('public freight filter composition preserves documented optional inputs', () => {
+  assert.deepEqual(normalizePublicFreightSearchFilters(undefined, undefined), {
+    radiusKm: null,
+    destination: null,
+  });
+  assert.deepEqual(normalizePublicFreightSearchFilters(100, '  Campinas, SP  '), {
+    radiusKm: 100,
+    destination: 'Campinas, SP',
+  });
+  assert.deepEqual(normalizePublicFreightSearchFilters(null, '  São Paulo  /  SP  '), {
+    radiusKm: null,
+    destination: 'São Paulo  /  SP',
+  });
+});
+
+test('public freight filter composition rejects invalid inputs and is immutable', () => {
+  assert.throws(() => normalizePublicFreightSearchFilters('100', 'Campinas'), RangeError);
+  assert.throws(() => normalizePublicFreightSearchFilters(50, { city: 'Campinas' }), TypeError);
+  const filters = normalizePublicFreightSearchFilters(200, null);
+  assert.equal(Object.isFrozen(filters), true);
+  assert.throws(() => { filters.radiusKm = 50; }, TypeError);
+  assert.deepEqual(filters, { radiusKm: 200, destination: null });
 });
