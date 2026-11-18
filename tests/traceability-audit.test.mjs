@@ -45,3 +45,10 @@ test('permits distinct actions in the same journey and screen at different stage
   assert.equal(result.registros_por_status.PENDENTE.jornadas, 1);
   assert.equal(result.registros_por_status.IMPLEMENTADO_NAO_HOMOLOGADO.jornadas, 1);
 });
+
+test('rejects unverified placeholder claiming implementation or action identifiers', () => {
+  const placeholder = '| v19 | NÃO VERIFICADO | NÃO VERIFICADO | — | NÃO VERIFICADO | — | — | Issue #1 | — | — | BLOQUEADO_POR_EVIDENCIA |';
+  assert.deepEqual(auditMatrix(header + placeholder).registros_por_status.HOMOLOGADO, { jornadas: 0, telas: 0, acoes: 0 });
+  assert.throws(() => auditMatrix(header + placeholder.replace('BLOQUEADO_POR_EVIDENCIA', 'HOMOLOGADO')), /não verificada/);
+  assert.throws(() => auditMatrix(header + placeholder.replace('| NÃO VERIFICADO | — | — | Issue #1', '| A-REAL | — | — | Issue #1')), /não verificada/);
+});
