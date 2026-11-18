@@ -1,21 +1,39 @@
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const file = new URL('../docs/matriz-rastreabilidade.md', import.meta.url);
-const source = readFileSync(file, 'utf8');
-const totals = { jornadas: 17, telas: 43, acoes: 107 };
-const statuses = new Set(['BLOQUEADO_POR_EVIDENCIA', 'PENDENTE', 'IMPLEMENTADO_NAO_HOMOLOGADO', 'HOMOLOGADO']);
-const rows = source.split(/\r?\n/).filter((line) => /^\|/.test(line));
-const entries = rows.slice(2).map((line) => line.split('|').slice(1, -1).map((cell) => cell.trim())).filter((cells) => cells.length === 11);
-const verified = entries.filter((cells) => statuses.has(cells[10]) && cells[1] !== 'NÃO VERIFICADO');
-const unique = (column, status) => new Set(verified.filter((cells) => cells[10] === status && cells[column] && cells[column] !== 'NÃO VERIFICADO').map((cells) => cells[column])).size;
-const result = {
-  fonte: 'docs/matriz-rastreabilidade.md',
-  escopo_documental: totals,
-  matriz_auditada: false,
-  homologados: { jornadas: unique(1, 'HOMOLOGADO'), telas: unique(2, 'HOMOLOGADO'), acoes: unique(4, 'HOMOLOGADO') },
-  observacao: 'Sem fonte integral aprovada e cobertura conferida, percentuais globais não podem ser calculados.'
-};
-if (verified.length > 0) {
-  throw new Error('Linhas verificadas exigem auditoria de cobertura do Mestre v19 antes de gerar percentuais.');
+const totals = Object.freeze({ jornadas: 17, telas: 43, acoes: 107 });
+const statuses = ['BLOQUEADO_POR_EVIDENCIA', 'PENDENTE', 'IMPLEMENTADO_NAO_HOMOLOGADO', 'HOMOLOGADO'];
+const isPlaceholder = (value) => !value || value === 'NÃO VERIFICADO' || value === '—';
+
+export function auditMatrix(source) {
+  const rows = source.split(/\r?\n/).filter((line) => /^\|/.test(line));
+  const entries = rows.slice(2).map((line) => line.split('|').slice(1, -1).map((cell) => cell.trim()));
+  const counted = Object.fromEntries(statuses.map((status) => [status, { jornadas: 0, telas: 0, acoes: 0 }]));
+  const ids = Object.fromEntries(statuses.map((status) => [status, [new Set(), new Set(), new Set()]]));
+  for (const cells of entries) {
+    if (cells.length !== 11 || !statuses.includes(cells[10])) {
+      throw new Error('Linha de rastreabilidade com estrutura ou status inválido.');
+    }
+    if (cells[1] === 'NÃO VERIFICADO') continue;
+    if (isPlaceholder(cells[0]) || isPlaceholder(cells[1]) || isPlaceholder(cells[2]) || isPlaceholder(cells[4]) || isPlaceholder(cells[7])) {
+      throw new Error('Linha verificada sem versão, identificadores ou evidência.');
+    }
+    for (const [index, column] of [[1, 0], [2, 1], [4, 2]]) ids[cells[10]][column].add(cells[index]);
+  }
+  for (const status of statuses) {
+    const [j, t, a] = ids[status];
+    counted[status] = { jornadas: j.size, telas: t.size, acoes: a.size };
+  }
+  return {
+    fonte: 'docs/matriz-rastreabilidade.md',
+    escopo_documental: totals,
+    matriz_auditada: false,
+    registros_por_status: counted,
+    observacao: 'Contagens por status são registros parciais da matriz, não totais concluídos; percentuais globais exigem auditoria da fonte aprovada.'
+  };
 }
-process.stdout.write(JSON.stringify(result, null, 2) + '\n');
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  const source = readFileSync(new URL('../docs/matriz-rastreabilidade.md', import.meta.url), 'utf8');
+  process.stdout.write(JSON.stringify(auditMatrix(source), null, 2) + '\n');
+}
