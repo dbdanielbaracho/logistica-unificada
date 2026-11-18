@@ -15,7 +15,12 @@ export function auditMatrix(source) {
     if (cells.length !== 11 || !statuses.includes(cells[10])) {
       throw new Error('Linha de rastreabilidade com estrutura ou status inválido.');
     }
-    if (cells[1] === 'NÃO VERIFICADO') continue;
+    if (cells[1] === 'NÃO VERIFICADO') {
+      if (cells[10] !== 'BLOQUEADO_POR_EVIDENCIA' || ![cells[2], cells[4]].every((value) => value === 'NÃO VERIFICADO')) {
+        throw new Error('Linha não verificada não pode declarar status ou identificadores funcionais.');
+      }
+      continue;
+    }
     if (isPlaceholder(cells[0]) || isPlaceholder(cells[1]) || isPlaceholder(cells[2]) || isPlaceholder(cells[4]) || isPlaceholder(cells[7])) {
       throw new Error('Linha verificada sem versão, identificadores ou evidência.');
     }
