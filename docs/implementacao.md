@@ -25,6 +25,10 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 
 - [x] Validador isolado de raio 50/100/200 km e destino opcional para busca pública de fretes, com testes automatizados (PR #24; EV-001). **Sem interface, API, dados reais ou busca operacional.**
 
+- [x] Testes de borda do validador público de fretes: imutabilidade, espaços Unicode, preservação de pontuação e rejeição de coerções implícitas (PRs #27–#29; sem busca real)
+- [x] Composição pura e imutável dos filtros públicos documentados de raio e destino opcionais (PR #30; sem API ou interface)
+- [x] Guarda estrita reutilizável de raios públicos documentados, com testes de tipos incompatíveis (PR #31; CI Quality gates #59 aprovado; deploy ainda sujeito a confirmação independente)
+
 ## Não implementado ou não homologado
 
 - [ ] Versão integral controlada do Documento Mestre no fluxo de engenharia, com rastreabilidade jornada → tela → ação → teste (issue #1)
