@@ -56,3 +56,17 @@ test('public radius parsing does not coerce numeric-looking text or booleans', (
     assert.throws(() => parsePublicFreightRadiusKm(invalid), RangeError);
   }
 });
+
+
+test('public filters reject boxed, symbolic and object inputs without implicit conversion', () => {
+  const objectWithThrowingCoercion = {
+    toString() { throw new Error('must not coerce input'); },
+    valueOf() { throw new Error('must not coerce input'); },
+  };
+  for (const invalid of [Symbol('50'), new Number(100), objectWithThrowingCoercion]) {
+    assert.throws(() => parsePublicFreightRadiusKm(invalid), RangeError);
+  }
+  for (const invalid of [Symbol('Campinas'), 100n, new String('Campinas'), objectWithThrowingCoercion]) {
+    assert.throws(() => normalizePublicFreightDestination(invalid), TypeError);
+  }
+});
