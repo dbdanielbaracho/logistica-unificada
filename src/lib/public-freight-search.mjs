@@ -26,3 +26,15 @@ export function normalizePublicFreightDestination(value) {
   const normalized = value.trim();
   return normalized === '' ? null : normalized;
 }
+
+/**
+ * Compõe somente os dois filtros públicos já documentados em EV-001.
+ * Sem execução de busca, contrato de API ou regra de publicação de frete.
+ * Ambos permanecem opcionais e cada entrada usa seu validador estrito.
+ */
+export function normalizePublicFreightSearchFilters(radiusKm, destination) {
+  return Object.freeze({
+    radiusKm: parsePublicFreightRadiusKm(radiusKm),
+    destination: normalizePublicFreightDestination(destination),
+  });
+}
