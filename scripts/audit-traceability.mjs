@@ -10,7 +10,7 @@ export function auditMatrix(source) {
   const entries = rows.slice(2).map((line) => line.split('|').slice(1, -1).map((cell) => cell.trim()));
   const counted = Object.fromEntries(statuses.map((status) => [status, { jornadas: 0, telas: 0, acoes: 0 }]));
   const ids = Object.fromEntries(statuses.map((status) => [status, [new Set(), new Set(), new Set()]]));
-  const ownership = [new Map(), new Map(), new Map()];
+  const ownership = new Map();
   for (const cells of entries) {
     if (cells.length !== 11 || !statuses.includes(cells[10])) {
       throw new Error('Linha de rastreabilidade com estrutura ou status inválido.');
@@ -22,14 +22,13 @@ export function auditMatrix(source) {
     if (cells[10] === 'HOMOLOGADO' && [cells[8], cells[9]].some(isPlaceholder)) {
       throw new Error('Homologação sem PR/commit ou teste rastreável.');
     }
-    for (const [index, column] of [[1, 0], [2, 1], [4, 2]]) {
-      const previous = ownership[column].get(cells[index]);
-      if (previous && previous !== cells[10]) {
-        throw new Error('Identificador com status conflitantes na matriz.');
-      }
-      ownership[column].set(cells[index], cells[10]);
-      ids[cells[10]][column].add(cells[index]);
+    const key = [cells[1], cells[2], cells[3], cells[4], cells[5]].join('\u001f');
+    const previous = ownership.get(key);
+    if (previous && previous !== cells[10]) {
+      throw new Error('Mesma relação de rastreabilidade com status conflitantes na matriz.');
     }
+    ownership.set(key, cells[10]);
+    for (const [index, column] of [[1, 0], [2, 1], [4, 2]]) ids[cells[10]][column].add(cells[index]);
   }
   for (const status of statuses) {
     const [j, t, a] = ids[status];
