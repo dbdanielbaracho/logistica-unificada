@@ -27,3 +27,14 @@ test('rejects incomplete evidence and unknown status', () => {
   assert.throws(() => auditMatrix(header + row('PENDENTE', '—')), /evidência/);
   assert.throws(() => auditMatrix(header + row('APROVADO')), /inválido/);
 });
+
+test('rejects same identifiers assigned to contradictory statuses', () => {
+  assert.throws(() => auditMatrix(header + row('PENDENTE') + '\n' + row('IMPLEMENTADO_NAO_HOMOLOGADO')), /conflitantes/);
+});
+
+test('requires traceable PR and test for homologated entries', () => {
+  const missingTest = row('HOMOLOGADO').replace('| PR | teste |', '| PR | — |');
+  const missingPR = row('HOMOLOGADO').replace('| PR | teste |', '| — | teste |');
+  assert.throws(() => auditMatrix(header + missingTest), /Homologação/);
+  assert.throws(() => auditMatrix(header + missingPR), /Homologação/);
+});
