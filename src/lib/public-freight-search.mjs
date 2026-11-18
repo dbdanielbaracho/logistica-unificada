@@ -6,12 +6,20 @@
 export const PUBLIC_FREIGHT_RADII_KM = Object.freeze([50, 100, 200]);
 
 /**
+ * Verifica os raios públicos documentados sem converter tipos de entrada.
+ * Não é uma regra para publicação de fretes ou serviços profissionais.
+ */
+export function isDocumentedPublicFreightRadiusKm(value) {
+  return typeof value === 'number' && PUBLIC_FREIGHT_RADII_KM.includes(value);
+}
+
+/**
  * Aceita somente os raios documentados, sem coerção implícita.
  * Retorna null para ausência de filtro; lança erro para valores inválidos.
  */
 export function parsePublicFreightRadiusKm(value) {
   if (value === undefined || value === null || value === '') return null;
-  if (typeof value !== 'number' || !PUBLIC_FREIGHT_RADII_KM.includes(value)) {
+  if (!isDocumentedPublicFreightRadiusKm(value)) {
     throw new RangeError('Raio de busca pública de fretes inválido');
   }
   return value;
