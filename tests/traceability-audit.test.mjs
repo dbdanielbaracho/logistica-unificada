@@ -40,7 +40,7 @@ test('requires traceable PR and test for homologated entries', () => {
 });
 
 test('permits distinct actions in the same journey and screen at different stages', () => {
-  const second = row('IMPLEMENTADO_NAO_HOMOLOGADO').replace('| A1 |', '| A2 |');
+  const second = row('IMPLEMENTADO_NAO_HOMOLOGADO').replace('| A-TESTE |', '| A-TESTE-2 |');
   const result = auditMatrix(header + row('PENDENTE') + '\n' + second);
   assert.equal(result.registros_por_status.PENDENTE.jornadas, 1);
   assert.equal(result.registros_por_status.IMPLEMENTADO_NAO_HOMOLOGADO.jornadas, 1);
