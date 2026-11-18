@@ -31,3 +31,16 @@ test('destination is optional only in public freight search', () => {
     assert.throws(() => normalizePublicFreightDestination(invalid), TypeError);
   }
 });
+
+
+test('documented public radii remain immutable', () => {
+  assert.equal(Object.isFrozen(PUBLIC_FREIGHT_RADII_KM), true);
+  assert.throws(() => PUBLIC_FREIGHT_RADII_KM.push(500), TypeError);
+  assert.deepEqual(PUBLIC_FREIGHT_RADII_KM, [50, 100, 200]);
+});
+
+test('public destination normalization trims Unicode whitespace without changing content', () => {
+  assert.equal(normalizePublicFreightDestination('\u00a0Campinas - SP\u2003'), 'Campinas - SP');
+  assert.equal(normalizePublicFreightDestination('\u00a0\u2003'), null);
+  assert.equal(normalizePublicFreightDestination('São Paulo / SP'), 'São Paulo / SP');
+});
