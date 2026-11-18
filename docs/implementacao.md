@@ -29,6 +29,9 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 - [x] Composição pura e imutável dos filtros públicos documentados de raio e destino opcionais (PR #30; sem API ou interface)
 - [x] Guarda estrita reutilizável de raios públicos documentados, com testes de tipos incompatíveis (PR #31; CI Quality gates #59 aprovado; deploy ainda sujeito a confirmação independente)
 
+- [x] Auditor de rastreabilidade: bloqueio de estados conflitantes para a mesma relação e exigência de referências a PR/commit e teste para HOMOLOGADO (PR #39, commit `3058e6cb`, CI Quality gates #77 aprovado; Railway deployment `f3c8f969` SUCCESS em 2026-11-18). **É controle técnico, não homologação das 17 jornadas, 43 telas ou 107 ações.**
+- [ ] Smoke HTTP externo do deployment `f3c8f969`: domínio Railway identificado, mas requisição externa não comprovada nesta execução (falha de resolução DNS no ambiente de verificação); logs do servidor indicam `Ready in 888ms`, o que não substitui o smoke HTTP.
+
 ## Não implementado ou não homologado
 
 - [ ] Versão integral controlada do Documento Mestre no fluxo de engenharia, com rastreabilidade jornada → tela → ação → teste (issue #1)
