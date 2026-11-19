@@ -22,3 +22,12 @@ Pesquisar os sites e termos oficiais antes de cada requisito ainda não comprova
 ## Pendências do Documento Mestre
 
 As pendências de negócio P01–P13 exigem confirmação de interfaces privadas, termos específicos, parceiros ou validação fiscal. P14–P22 têm critérios de engenharia documentados, porém **não** estão automaticamente implementados/testados. O fato de a documentação existir não significa que o produto esteja pronto.
+
+## Atualização de pesquisa oficial — 2026-11-19
+
+| ID | Lacuna | Fonte oficial e observação | Decisão segura | Risco e desbloqueio |
+|---|---|---|---|---|
+| EV-006 | Interface de busca de fretes ainda é placeholder | https://www.fretebras.com.br/fretes/ — página pública consultada em 2026-11-19: origem, destino opcional, raio 50/100/200 km, seleção de veículo e carroceria | Priorizar protótipo de interface **não transacional**, reutilizando validadores públicos já existentes; não publicar fretes reais nem simular resultados | Os identificadores de jornada/tela/ação do Mestre v19 ainda não estão acessíveis na matriz (issue #1); confirmar seção e destino antes de alterar rota/tela conforme AGENTS.md |
+| EV-007 | Contratação profissional separada de fretes | https://motoristapx.com.br/empresas — página pública consultada em 2026-11-19: empresas contratam motoristas sob demanda, com acesso também por aplicativo | Preservar domínio de contratação de profissionais distinto da busca de fretes; estudar apenas padrões públicos de organização e acessibilidade | Não inferir elegibilidade, vínculo, remuneração, prazo contratual, cobrança ou contratação efetiva; exige Mestre, contratos e homologação |
+
+**Decisão de engenharia:** não retirar o aviso de operações indisponíveis para sugerir uma busca/contratação real. Implementação de interface funcional dependerá do mapeamento aprovado da jornada/tela/ação, mesmo com referência pública. Esta atualização documenta evidências e não declara novas funcionalidades entregues. Nenhum código, marca, texto de marketing ou dados privados dos concorrentes foi copiado.
