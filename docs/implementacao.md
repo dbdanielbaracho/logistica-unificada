@@ -87,3 +87,12 @@ Esta atualização é apenas documental e de observabilidade; não altera jornad
 - [ ] Documento Mestre v19 funcional e matriz issue #1 permanecem sem alteração de escopo e sem percentual funcional auditado.
 
 Referência: `docs/adendos/AT-2026-11-19-01-monitor-dominio.md`.
+
+
+## Monitor público com jobs independentes — adendo AT-2026-11-19-02
+
+- [ ] PR técnico: separar Railway e domínio personalizado em jobs independentes para que falha de um não impeça a execução do outro; ambos devem contribuir para status de falha do workflow.
+- [ ] Aceite: testes automatizados, Quality gates aprovado, merge e execução externa verificada separadamente.
+- [ ] Matriz funcional do Mestre v19 continua `BLOQUEADO_POR_EVIDENCIA` (issue #1); sem impacto em jornadas, telas, ações, contratos, pagamentos ou dados pessoais.
+
+Referência: `docs/adendos/AT-2026-11-19-02-independent-health-jobs.md`.
