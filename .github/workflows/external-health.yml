@@ -1,0 +1,27 @@
+name: External public health smoke
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-public-health-smoke
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check public Railway health contract
+        env:
+          SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
+        run: node scripts/smoke-health.mjs
