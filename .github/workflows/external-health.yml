@@ -25,3 +25,7 @@ jobs:
         env:
           SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
         run: node scripts/smoke-health.mjs
+      - name: Check custom-domain public health contract
+        env:
+          SMOKE_BASE_URL: https://lu.predibeacon.com
+        run: node scripts/smoke-health.mjs
