@@ -52,3 +52,15 @@ test('rejects unverified placeholder claiming implementation or action identifie
   assert.throws(() => auditMatrix(header + placeholder.replace('BLOQUEADO_POR_EVIDENCIA', 'HOMOLOGADO')), /não verificada/);
   assert.throws(() => auditMatrix(header + placeholder.replace('| NÃO VERIFICADO | — | — | Issue #1', '| A-REAL | — | — | Issue #1')), /não verificada/);
 });
+
+
+test('rejects invented state, destination and requirement on unverified rows', () => {
+  const placeholder = '| Aguardando versão controlada | NÃO VERIFICADO | NÃO VERIFICADO | NÃO VERIFICADO | NÃO VERIFICADO | NÃO VERIFICADO | NÃO VERIFICADO | Issue #1 | — | — | BLOQUEADO_POR_EVIDENCIA |';
+  for (const invented of ['estado operacional', 'destino comercial', 'requisito inventado']) {
+    const column = invented === 'estado operacional' ? 3 : invented === 'destino comercial' ? 5 : 6;
+    const cells = placeholder.split('|');
+    cells[column + 1] = ` ${invented} `;
+    assert.throws(() => auditMatrix(header + cells.join('|')), /não verificada/);
+  }
+  assert.equal(auditMatrix(header + placeholder).matriz_auditada, false);
+});
