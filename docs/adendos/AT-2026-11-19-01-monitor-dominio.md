@@ -1,12 +1,12 @@
 # Adendo técnico controlado ao Mestre v19 — AT-2026-11-19-01
 
-**Estado:** proposta de engenharia em PR, sem alteração do escopo funcional do Mestre v19.
+**Estado:** adendo técnico incorporado à `main` pelo PR #49 (commit `7cfac03a574f6a5c69ec0d2848194458e10934a1`), sem alteração do escopo funcional do Mestre v19. A execução externa do monitor permanece sujeita à comprovação.
 
 ## Motivação e evidência
 
 O serviço Railway `logistica-web` passou a aceitar o domínio público `lu.predibeacon.com`. A API Railway informou propriedade verificada e certificado HTTPS válido em 2026-11-19, embora a leitura de CNAME ainda retorne `DNS_RECORD_STATUS_REQUIRES_UPDATE`. Logs HTTP do Railway mostraram resposta 200 para `/` nesse domínio, o que não comprova o contrato JSON de `/api/health`.
 
-Referências: [procedimento público de saúde](diagnostico-health-publico.md), [monitor agendado](../.github/workflows/external-health.yml), [controle de implementação](implementacao.md).
+Referências: [procedimento público de saúde](../diagnostico-health-publico.md), [monitor agendado](../../.github/workflows/external-health.yml), [controle de implementação](../implementacao.md).
 
 ## Decisão técnica reversível
 
