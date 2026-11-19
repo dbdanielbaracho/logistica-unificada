@@ -67,3 +67,14 @@ Nenhum método financeiro, tarifa ou condição comercial poderá ser inferido. 
 - [ ] Diagnóstico de rede proposto em `scripts/diagnose-public-health.mjs`, com testes de DNS, falha HTTP e URL inválida (`tests/diagnose-public-health.test.mjs`); ainda sujeito a CI, merge e comprovação operacional. Procedimento: `docs/diagnostico-health-publico.md`.
 - [ ] Smoke HTTP externo 200/JSON no ambiente público: **não comprovado**; deployment SUCCESS não é evidência equivalente. Não alterar DNS nem ativar operação real com base apenas neste diagnóstico.
 - [ ] Matriz funcional permanece `BLOQUEADO_POR_EVIDENCIA` (issue #1); não contabilizar 17/43/107 como entregues.
+
+
+## Domínio público personalizado — 2026-11-19
+
+- [x] Domínio `lu.predibeacon.com` associado ao serviço `logistica-web`, ambiente production, Railway projeto `dd17098d-570e-47e9-a311-b97c0c55b14d`.
+- [x] Verificação de propriedade confirmada pela API Railway (`verified: true`); certificado HTTPS `CERTIFICATE_STATUS_TYPE_VALID`.
+- [x] PR #46 incorporado na main, commit `daa39507f145939cc47ef2a9832863e158bdcb27`; deployment `dce2d63f-2e1f-4218-85b1-66853eae40d4` SUCCESS. Diagnóstico isolado em `scripts/diagnose-public-health.mjs`.
+- [ ] A consulta Railway ainda sinaliza `DNS_RECORD_STATUS_REQUIRES_UPDATE` para CNAME `lu`, mesmo com domínio verificado e certificado válido; verificar resolução pública por executor independente e resultado do smoke HTTP 200/JSON antes de homologar disponibilidade externa.
+- [ ] Matriz funcional e Mestre v19 integral: pendência issue #1; os totais 17 jornadas, 43 telas-base e 107 ações são escopo documental, sem percentuais auditáveis.
+
+Esta atualização é apenas documental e de observabilidade; não altera jornadas, rotas comerciais, contratos, pagamentos ou tratamento de dados pessoais.
