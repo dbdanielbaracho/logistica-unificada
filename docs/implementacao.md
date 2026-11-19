@@ -78,3 +78,12 @@ Nenhum método financeiro, tarifa ou condição comercial poderá ser inferido. 
 - [ ] Matriz funcional e Mestre v19 integral: pendência issue #1; os totais 17 jornadas, 43 telas-base e 107 ações são escopo documental, sem percentuais auditáveis.
 
 Esta atualização é apenas documental e de observabilidade; não altera jornadas, rotas comerciais, contratos, pagamentos ou tratamento de dados pessoais.
+
+
+## Monitoramento do domínio personalizado — adendo AT-2026-11-19-01
+
+- [ ] PR técnico: incluir `lu.predibeacon.com` como segundo alvo independente do monitor agendado de `/api/health`, preservando domínio Railway original e testes sem segredos.
+- [ ] Comprovar Quality gates e execução externa agendada/manual do contrato JSON em ambos os domínios antes de marcar operação externa como validada.
+- [ ] Documento Mestre v19 funcional e matriz issue #1 permanecem sem alteração de escopo e sem percentual funcional auditado.
+
+Referência: `docs/adendos/AT-2026-11-19-01-monitor-dominio.md`.
