@@ -32,6 +32,11 @@ Referência obrigatória: Documento Mestre v19.0, 43 telas-base, 17 jornadas e 1
 - [x] Auditor de rastreabilidade: bloqueio de estados conflitantes para a mesma relação e exigência de referências a PR/commit e teste para HOMOLOGADO (PR #39, commit `3058e6cb`, CI Quality gates #77 aprovado; Railway deployment `f3c8f969` SUCCESS em 2026-11-18). **É controle técnico, não homologação das 17 jornadas, 43 telas ou 107 ações.**
 - [ ] Smoke HTTP externo do deployment `f3c8f969`: domínio Railway identificado, mas requisição externa não comprovada nesta execução (falha de resolução DNS no ambiente de verificação); logs do servidor indicam `Ready in 888ms`, o que não substitui o smoke HTTP.
 
+
+- [x] Auditor de rastreabilidade: bloqueio de homologação fictícia e de identificadores em linhas `NÃO VERIFICADO` (PR #41, commit `3ec38b33`; Railway deployment `3611b6cd` SUCCESS em 2026-11-18). **Não comprova conclusão funcional.**
+- [x] Auditor de rastreabilidade: rejeição de estado, destino e requisito inventados em linhas `NÃO VERIFICADO`, com teste de regressão (PR #42, commit `7156ab10`; Quality gates #83 SUCCESS no PR; Railway deployment `eaabdc39-a65d-4e3c-a03b-01950b272e9f` SUCCESS em 2026-11-19, réplica 1/1 ativa e `Ready in 357ms`). **Não comprova conclusão funcional.**
+- [ ] Smoke HTTP externo do deployment `eaabdc39`: não comprovado em 2026-11-19; stream HTTP do Railway retornou 0 registros na consulta. Estado SUCCESS e log Ready não substituem requisição HTTP externa.
+
 ## Não implementado ou não homologado
 
 - [ ] Versão integral controlada do Documento Mestre no fluxo de engenharia, com rastreabilidade jornada → tela → ação → teste (issue #1)
