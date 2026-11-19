@@ -5,7 +5,9 @@ import { readFileSync } from 'node:fs';
 const workflow = readFileSync(new URL('../.github/workflows/external-health.yml', import.meta.url), 'utf8');
 
 test('public endpoints have separate independently reported GitHub Actions jobs', () => {
-  const jobs = workflow.split(/^  (?=[a-z][a-z-]*:\s*$)/m).filter((part) => /^([a-z][a-z-]*):\s*$/m.test(part.split('\n')[0]));
+  const jobsSection = workflow.split(/^jobs:\s*$/m)[1];
+  assert.ok(jobsSection, 'workflow declares jobs section');
+  const jobs = jobsSection.split(/^  (?=[a-z][a-z-]*:\s*$)/m).filter((part) => /^([a-z][a-z-]*):\s*$/m.test(part.split('\n')[0]));
   assert.equal(jobs.length, 2, 'exactly two independently reported health jobs');
   const [railway, custom] = jobs;
   assert.match(railway, /^railway-health:\s*$/m);
