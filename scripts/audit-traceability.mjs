@@ -16,7 +16,7 @@ export function auditMatrix(source) {
       throw new Error('Linha de rastreabilidade com estrutura ou status inválido.');
     }
     if (cells[1] === 'NÃO VERIFICADO') {
-      if (cells[10] !== 'BLOQUEADO_POR_EVIDENCIA' || ![cells[2], cells[4]].every((value) => value === 'NÃO VERIFICADO')) {
+      if (cells[10] !== 'BLOQUEADO_POR_EVIDENCIA' || ![cells[2], cells[4]].every((value) => value === 'NÃO VERIFICADO') || ![cells[3], cells[5], cells[6]].every(isPlaceholder)) {
         throw new Error('Linha não verificada não pode declarar status ou identificadores funcionais.');
       }
       continue;
