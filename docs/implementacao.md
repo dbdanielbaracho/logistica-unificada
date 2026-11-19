@@ -61,3 +61,9 @@ Antes de habilitar cada jornada: identificar seção e versão do Mestre, mapear
 Nenhum método financeiro, tarifa ou condição comercial poderá ser inferido. Fluxos de frete e contratação profissional continuam separados e indisponíveis até homologação.
 
 **Regra de encerramento:** declarar funcionalidade concluída somente com código, testes, implantação e evidência contratual/regulatória pertinente.
+
+## Diagnóstico DNS/HTTP externo — 2026-11-19 (PR em revisão)
+
+- [ ] Diagnóstico de rede proposto em `scripts/diagnose-public-health.mjs`, com testes de DNS, falha HTTP e URL inválida (`tests/diagnose-public-health.test.mjs`); ainda sujeito a CI, merge e comprovação operacional. Procedimento: `docs/diagnostico-health-publico.md`.
+- [ ] Smoke HTTP externo 200/JSON no ambiente público: **não comprovado**; deployment SUCCESS não é evidência equivalente. Não alterar DNS nem ativar operação real com base apenas neste diagnóstico.
+- [ ] Matriz funcional permanece `BLOQUEADO_POR_EVIDENCIA` (issue #1); não contabilizar 17/43/107 como entregues.
