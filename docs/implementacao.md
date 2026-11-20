@@ -101,3 +101,12 @@ Referência: `docs/adendos/AT-2026-11-19-02-independent-health-jobs.md`.
 
 - [ ] PR #52 propõe testes de contrato HTTP/JSON, URL fixa, rejeição de protocolos/credenciais e opções seguras de fetch. Adendo: `docs/adendos/AT-2026-11-19-03.md`.
 - [ ] Aguardando CI, revisão e merge. Testes simulados não comprovam monitor externo nem homologam funcionalidades do Mestre v19. A issue #1 permanece bloqueada.
+
+## Segurança de caminhos sensíveis — reaplicação sobre main (2026-11-20)
+
+- [x] Código e testes isolados propostos na branch `test/security-sensitive-rebased-20261120` a partir da main após PRs #52 e #55; regressões para 404, redirecionamentos, falhas HTTP, timeouts e ausência de conteúdo sensível nos resultados.
+- [ ] CI e merge do novo PR ainda não confirmados; não interpretar testes escritos como executados. O PR #54 original permanece em conflito e deve ser preservado para comparação histórica.
+- [ ] Smoke HTTPS e cabeçalhos efetivos do deployment público ainda não homologados por estes testes isolados; issue #53 permanece aberta.
+- [ ] Documento Mestre v19 integral, 17 jornadas, 43 telas-base e 107 ações continuam não auditados; issue #1 e bloqueios financeiros preservados.
+
+Referência: `docs/adendos/AT-2026-11-19-04-security-sensitive-paths.md`.
