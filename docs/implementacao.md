@@ -96,3 +96,8 @@ Referência: `docs/adendos/AT-2026-11-19-01-monitor-dominio.md`.
 - [ ] Matriz funcional do Mestre v19 continua `BLOQUEADO_POR_EVIDENCIA` (issue #1); sem impacto em jornadas, telas, ações, contratos, pagamentos ou dados pessoais.
 
 Referência: `docs/adendos/AT-2026-11-19-02-independent-health-jobs.md`.
+
+## Regressão do contrato público de saúde — AT-2026-11-19-03 (PR #52)
+
+- [ ] PR #52 propõe testes de contrato HTTP/JSON, URL fixa, rejeição de protocolos/credenciais e opções seguras de fetch. Adendo: `docs/adendos/AT-2026-11-19-03.md`.
+- [ ] Aguardando CI, revisão e merge. Testes simulados não comprovam monitor externo nem homologam funcionalidades do Mestre v19. A issue #1 permanece bloqueada.
