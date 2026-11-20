@@ -96,3 +96,8 @@ Referência: `docs/adendos/AT-2026-11-19-01-monitor-dominio.md`.
 - [ ] Matriz funcional do Mestre v19 continua `BLOQUEADO_POR_EVIDENCIA` (issue #1); sem impacto em jornadas, telas, ações, contratos, pagamentos ou dados pessoais.
 
 Referência: `docs/adendos/AT-2026-11-19-02-independent-health-jobs.md`.
+
+## Proteção de caminhos sensíveis — AT-2026-11-19-04
+
+- [ ] Testes de regressão propostos para sete caminhos sensíveis e cabeçalhos defensivos; smoke HTTPS opcional apenas em hosts autorizados. Aguardando CI, PR, merge e evidência operacional. Issue #53.
+- [ ] Sem impacto funcional: 17 jornadas, 43 telas-base e 107 ações permanecem inventário documental, sem percentual auditado; issue #1 segue bloqueada por evidência.
