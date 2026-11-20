@@ -56,3 +56,13 @@ test('isolated HTTP probe rejects credentials, query, fragments and non-http sch
     await assert.rejects(checkSensitivePaths(url), /Invalid isolated test base URL/);
   }
 });
+
+
+test('isolated probe rejects invalid timeout configuration before network access', async () => {
+  for (const timeoutMs of [0, -1, 1.5, Number.NaN, 30001, '5000']) {
+    await assert.rejects(
+      checkSensitivePaths('http://127.0.0.1:1/', { timeoutMs }),
+      /timeoutMs must be an integer from 1 to 30000/
+    );
+  }
+});
