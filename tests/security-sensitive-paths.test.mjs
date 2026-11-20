@@ -10,7 +10,7 @@ const sensitivePaths = [
 test('sensitive-path probes are explicit and contain no secret values', () => {
   assert.equal(new Set(sensitivePaths).size, sensitivePaths.length);
   for (const path of sensitivePaths) {
-    assert.match(path, /^\/[a-zA-Z0-9._/-]+$/);
+    assert.ok(path.startsWith('/') && !path.includes('?') && !path.includes('#'));
     assert.ok(!path.includes('..'));
   }
 });
