@@ -15,3 +15,8 @@ Sem alteração de jornadas, telas, ações, contratos, pagamentos ou dados pess
 
 ## Aceite
 CI de testes e build aprovado; execução autorizada do smoke HTTPS documentada; revisão e merge em PR. Até lá: NÃO HOMOLOGADO.
+
+## Complemento de regressão — 2026-11-20
+- `tests/security-sensitive-status-regression.test.mjs` cobre respostas 200, 204, 301, 302, 401, 403 e 500, além de falha de rede simulada. Apenas HTTP 404 pode ser considerado aprovado.
+- O teste confirma política de redirecionamento manual, ausência de cache e não inclusão de corpos de resposta nos resultados. Usa somente respostas sintéticas e não acessa serviços públicos.
+- Aceite permanece condicionado a CI e revisão; ausência de status checks não equivale a aprovação. Não houve alteração de regra comercial ou do inventário 17/43/107.
