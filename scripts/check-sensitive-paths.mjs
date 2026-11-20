@@ -5,6 +5,9 @@ export const sensitivePaths = Object.freeze([
 ]);
 
 export async function checkSensitivePaths(baseUrl, { fetchImpl = fetch, timeoutMs = 5000 } = {}) {
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 30000) {
+    throw new RangeError('timeoutMs must be an integer from 1 to 30000');
+  }
   const base = new URL(baseUrl);
   if (!['http:', 'https:'].includes(base.protocol) || base.username || base.password ||
       base.search || base.hash || base.pathname !== '/') {
