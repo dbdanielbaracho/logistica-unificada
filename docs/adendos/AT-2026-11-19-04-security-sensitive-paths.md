@@ -1,0 +1,17 @@
+# AT-2026-11-19-04 — Regressão de exposição de caminhos sensíveis
+
+Status: PROPOSTO, sujeito a CI, revisão e verificação externa. Referência: issue #53.
+
+## Fonte e evidência
+- Logs HTTP do Railway para o serviço logistica-web, consultados em 2026-11-19: sondagens de caminhos de configuração (por exemplo, `/.vscode/sftp.json`, `/config/local.json`, `/service_account.json`) responderam 404.
+- Issue operacional: https://github.com/dbdanielbaracho/logistica-unificada/issues/53
+- Cabeçalhos já definidos em `next.config.ts`; não se presume que a simples presença no código prove aplicação em produção.
+
+## Decisão técnica
+Adicionar testes de regressão sem segredos reais: inventário fixo de caminhos, conferência estática de cabeçalhos e smoke HTTPS opcional em host explicitamente permitido por `SECURITY_TEST_BASE_URL`. A execução padrão não faz solicitações externas. O smoke não deve ser interpretado como pentest ou garantia de ausência de vazamento.
+
+## Escopo e risco
+Sem alteração de jornadas, telas, ações, contratos, pagamentos ou dados pessoais. Sem varredura ampla nem logging de respostas. O smoke é limitado a sete caminhos e a dois domínios autorizados. Riscos: 404 pode mascarar falhas de segurança em outras rotas; a proteção real exige auditoria adicional, inclusive do build e da configuração de publicação.
+
+## Aceite
+CI de testes e build aprovado; execução autorizada do smoke HTTPS documentada; revisão e merge em PR. Até lá: NÃO HOMOLOGADO.
