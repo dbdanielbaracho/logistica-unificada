@@ -91,7 +91,7 @@ Referência: `docs/adendos/AT-2026-11-19-01-monitor-dominio.md`.
 
 ## Monitor público com jobs independentes — adendo AT-2026-11-19-02
 
-- [ ] PR técnico: separar Railway e domínio personalizado em jobs independentes para que falha de um não impeça a execução do outro; ambos devem contribuir para status de falha do workflow.
+- [x] PR #51 incorporado (`4be3f09c`): separar Railway e domínio personalizado em jobs independentes para que falha de um não impeça a execução do outro; ambos devem contribuir para status de falha do workflow.
 - [ ] Aceite: testes automatizados, Quality gates aprovado, merge e execução externa verificada separadamente.
 - [ ] Matriz funcional do Mestre v19 continua `BLOQUEADO_POR_EVIDENCIA` (issue #1); sem impacto em jornadas, telas, ações, contratos, pagamentos ou dados pessoais.
 
@@ -99,14 +99,22 @@ Referência: `docs/adendos/AT-2026-11-19-02-independent-health-jobs.md`.
 
 ## Regressão do contrato público de saúde — AT-2026-11-19-03 (PR #52)
 
-- [ ] PR #52 propõe testes de contrato HTTP/JSON, URL fixa, rejeição de protocolos/credenciais e opções seguras de fetch. Adendo: `docs/adendos/AT-2026-11-19-03.md`.
-- [ ] Aguardando CI, revisão e merge. Testes simulados não comprovam monitor externo nem homologam funcionalidades do Mestre v19. A issue #1 permanece bloqueada.
+- [x] PR #52 incorporado (`525b7e5f`): testes de contrato HTTP/JSON, URL fixa, rejeição de protocolos/credenciais e opções seguras de fetch. Adendo: `docs/adendos/AT-2026-11-19-03.md`.
+- [x] Merge do PR #52 confirmado; testes simulados não comprovam monitor externo nem homologam funcionalidades do Mestre v19. A issue #1 permanece bloqueada.
 
 ## Segurança de caminhos sensíveis — reaplicação sobre main (2026-11-20)
 
-- [x] Código e testes isolados propostos na branch `test/security-sensitive-rebased-20261120` a partir da main após PRs #52 e #55; regressões para 404, redirecionamentos, falhas HTTP, timeouts e ausência de conteúdo sensível nos resultados.
-- [ ] CI e merge do novo PR ainda não confirmados; não interpretar testes escritos como executados. O PR #54 original permanece em conflito e deve ser preservado para comparação histórica.
+- [x] Código e testes isolados incorporados via PR #56 (`4388f8d2`) a partir da main após PRs #52 e #55; regressões para 404, redirecionamentos, falhas HTTP, timeouts e ausência de conteúdo sensível nos resultados.
+- [x] CI Quality gates #122 SUCCESS e merge do PR #56 confirmados em 2026-11-20; testes isolados não equivalem à homologação operacional. O PR #54 original permanece aberto e em conflito, preservado para comparação histórica.
 - [ ] Smoke HTTPS e cabeçalhos efetivos do deployment público ainda não homologados por estes testes isolados; issue #53 permanece aberta.
 - [ ] Documento Mestre v19 integral, 17 jornadas, 43 telas-base e 107 ações continuam não auditados; issue #1 e bloqueios financeiros preservados.
 
 Referência: `docs/adendos/AT-2026-11-19-04-security-sensitive-paths.md`.
+
+## Reconciliação auditada de GitHub e Railway — 2026-11-20 (18h29 BRT)
+
+- `main` no commit `4388f8d2ff47c6720d54f30d1de85f0940f56b25`; PRs #51, #52, #55 e #56 incorporados. PR #54 ainda aberto, não incorporado diretamente; alterações de segurança reaplicadas pelo #56, sem presumir equivalência integral dos diffs.
+- Railway `logistica-web` (production): deployment `2b3027e4-f073-44c3-83e2-4ffb13484e48` `SUCCESS`, mesmo commit da `main`, sem alterações de configuração staged. Logs mostram `Ready in 412ms`; o SIGTERM registrado corresponde ao encerramento de container durante substituição, não a prova de incidente no container atual.
+- Amostra de 101 registros HTTP consultados: 20 respostas 200, 63 respostas 404 e 18 respostas 308. Sondagens observadas de `/.env` e `/.git/HEAD` responderam 404; não extrapolar para auditoria completa. `robots.txt` e `sitemap.xml` responderam 404 na amostra: não tratar automaticamente como defeito, pois a política de indexação ainda depende de decisão documentada.
+- **Pendente:** teste HTTPS independente com status, cabeçalhos e corpo JSON esperado de `/api/health` nos dois domínios; verificar issue #53 sem registrar IPs, segredos ou corpos sensíveis. Issue #1 mantém bloqueada a homologação das 17 jornadas, 43 telas-base e 107 ações, que são apenas inventário documental.
+- Histórico acima preservado intencionalmente; itens antigos com status de PR em revisão representam o estado à época, não o estado atual. Nenhuma operação financeira, contrato ou fluxo real foi habilitado por esta reconciliação.
