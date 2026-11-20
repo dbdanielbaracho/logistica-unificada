@@ -20,3 +20,8 @@ CI de testes e build aprovado; execução autorizada do smoke HTTPS documentada;
 - `tests/security-sensitive-status-regression.test.mjs` cobre respostas 200, 204, 301, 302, 401, 403 e 500, além de falha de rede simulada. Apenas HTTP 404 pode ser considerado aprovado.
 - O teste confirma política de redirecionamento manual, ausência de cache e não inclusão de corpos de resposta nos resultados. Usa somente respostas sintéticas e não acessa serviços públicos.
 - Aceite permanece condicionado a CI e revisão; ausência de status checks não equivale a aprovação. Não houve alteração de regra comercial ou do inventário 17/43/107.
+
+## Complemento de contrato — 2026-11-20, 05h (Brasília)
+- `tests/security-sensitive-contract-regression.test.mjs` verifica o resultado exato de sete respostas 404, opções de fetch, ausência de corpos sensíveis nos resultados e rejeição de URLs inseguras antes de qualquer acesso de rede. Testes inteiramente sintéticos.
+- CI: consultas a workflow runs e status checks do commit anterior `e280e2f1` retornaram listas vazias; isto não constitui aprovação nem prova de falha. Validar pelo painel GitHub Actions e pelos jobs do PR antes de merge.
+- Railway: deployment `fafe8fc1` permanece SUCCESS com commit `4be3f09c`; não contém as mudanças deste PR. Não houve homologação comercial ou funcional.
