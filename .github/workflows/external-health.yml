@@ -26,6 +26,10 @@ jobs:
         env:
           SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
         run: node scripts/smoke-health.mjs
+      - name: Check public Railway security headers
+        env:
+          SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
+        run: node scripts/check-public-security-headers.mjs
   custom-domain-health:
     name: Check custom-domain public health
     runs-on: ubuntu-latest
@@ -39,3 +43,7 @@ jobs:
         env:
           SMOKE_BASE_URL: https://lu.predibeacon.com
         run: node scripts/smoke-health.mjs
+      - name: Check custom-domain security headers
+        env:
+          SMOKE_BASE_URL: https://lu.predibeacon.com
+        run: node scripts/check-public-security-headers.mjs
