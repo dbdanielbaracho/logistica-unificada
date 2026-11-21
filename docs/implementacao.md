@@ -129,3 +129,12 @@ Referência: `docs/adendos/AT-2026-11-19-04-security-sensitive-paths.md`.
 - [ ] Mestre v19 integral e rastreabilidade funcional continuam pendentes (issue #1). 17 jornadas, 43 telas-base e 107 ações são escopo documental, sem percentuais auditados.
 
 Atualização exclusivamente documental; não altera telas, APIs, pagamentos, contratos ou dados pessoais.
+
+## Monitoramento externo de cabeçalhos — AT-2026-11-21-02 (PR em revisão)
+
+- [x] Código do verificador isolado de cabeçalhos HTTP incorporado anteriormente via PR #59 (`a1fd09d5`); a existência do código não comprova execução externa.
+- [ ] PR técnico desta alteração: executar `scripts/check-public-security-headers.mjs` após o smoke de saúde nos **dois jobs independentes** do workflow agendado `external-health.yml`, com falha explícita se qualquer cabeçalho divergir.
+- [ ] Aceite pendente: Quality gates do PR, merge e execução externa real nos dois domínios com resultados e URLs verificáveis; issue #53 permanece aberta até evidência suficiente.
+- [ ] Issue #1: Mestre v19 integral e rastreabilidade das 17 jornadas, 43 telas-base e 107 ações continuam sem auditoria de conclusão; não apresentar percentual fictício.
+
+Referência: `docs/adendos/AT-2026-11-21-02-monitor-headers.md`. Esta alteração é somente de monitoramento; não habilita operação comercial, pagamento, contrato ou uso de dados pessoais.
