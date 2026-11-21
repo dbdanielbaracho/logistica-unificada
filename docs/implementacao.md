@@ -138,3 +138,12 @@ Atualização exclusivamente documental; não altera telas, APIs, pagamentos, co
 - [ ] Issue #1: Mestre v19 integral e rastreabilidade das 17 jornadas, 43 telas-base e 107 ações continuam sem auditoria de conclusão; não apresentar percentual fictício.
 
 Referência: `docs/adendos/AT-2026-11-21-02-monitor-headers.md`. Esta alteração é somente de monitoramento; não habilita operação comercial, pagamento, contrato ou uso de dados pessoais.
+
+
+## Regressão automatizada do monitor de cabeçalhos — AT-2026-11-21-03
+
+- [x] Teste de contrato de workflow criado em branch/PR: exige que cada domínio público tenha job independente com smoke de saúde e verificação de cabeçalhos, sem segredos ou supressão de falhas. Referência: `tests/external-security-monitor-workflow.test.mjs`.
+- [ ] Aceite do PR: CI aprovado, merge e execução do monitor externo na versão integrada. Teste estático não substitui validação HTTPS real (issue #53).
+- [ ] Auditoria das 17 jornadas, 43 telas-base e 107 ações continua bloqueada pela ausência da fonte integral controlada do Mestre v19 (issue #1). Nenhuma porcentagem funcional atribuída.
+
+Adendo: `docs/adendos/AT-2026-11-21-03-monitor-regression.md`.
