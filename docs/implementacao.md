@@ -118,3 +118,14 @@ Referência: `docs/adendos/AT-2026-11-19-04-security-sensitive-paths.md`.
 - Amostra de 101 registros HTTP consultados: 20 respostas 200, 63 respostas 404 e 18 respostas 308. Sondagens observadas de `/.env` e `/.git/HEAD` responderam 404; não extrapolar para auditoria completa. `robots.txt` e `sitemap.xml` responderam 404 na amostra: não tratar automaticamente como defeito, pois a política de indexação ainda depende de decisão documentada.
 - **Pendente:** teste HTTPS independente com status, cabeçalhos e corpo JSON esperado de `/api/health` nos dois domínios; verificar issue #53 sem registrar IPs, segredos ou corpos sensíveis. Issue #1 mantém bloqueada a homologação das 17 jornadas, 43 telas-base e 107 ações, que são apenas inventário documental.
 - Histórico acima preservado intencionalmente; itens antigos com status de PR em revisão representam o estado à época, não o estado atual. Nenhuma operação financeira, contrato ou fluxo real foi habilitado por esta reconciliação.
+
+
+## Evidência externa independente — 2026-11-20, execução #5
+
+- [x] [External public health smoke #5](https://github.com/dbdanielbaracho/logistica-unificada/actions/runs/44840761398), iniciado em 2026-11-20 23:59:47 UTC: SUCCESS nos dois jobs independentes (domínio personalizado e domínio Railway), inclusive etapas de contrato público.
+- [x] O workflow .github/workflows/external-health.yml executa scripts/smoke-health.mjs separadamente contra https://lu.predibeacon.com e https://logistica-web-production-cfbeefaa.up.railway.app. Logs HTTP Railway: GET /api/health retornou 200 nos dois hosts às 23:59:53 e 23:59:55 UTC. Evidência válida para esta execução, não disponibilidade permanente.
+- [x] Deployment dae89f99-2e25-4844-8b18-94ce71688223, commit c07bad8999f7fe752845c7dd433cb21aafdfb39b: SUCCESS, réplica 1/1 online, nenhuma falha recente, sem mudanças staged (consulta 2026-11-21 00:28 UTC).
+- [ ] Cabeçalhos efetivos e todos os caminhos sensíveis em HTTPS público continuam não homologados (issue #53); healthcheck não substitui auditoria de segurança.
+- [ ] Mestre v19 integral e rastreabilidade funcional continuam pendentes (issue #1). 17 jornadas, 43 telas-base e 107 ações são escopo documental, sem percentuais auditados.
+
+Atualização exclusivamente documental; não altera telas, APIs, pagamentos, contratos ou dados pessoais.
