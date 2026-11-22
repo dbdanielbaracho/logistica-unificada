@@ -156,3 +156,14 @@ Adendo: `docs/adendos/AT-2026-11-21-03-monitor-regression.md`.
 - [ ] Nenhuma rota comercial, integração financeira, contrato ou dado pessoal foi habilitado.
 
 Referência: `docs/adendos/AT-2026-11-21-04-sensitive-path-monitor.md`.
+
+
+## Liberação de streams no monitor de caminhos sensíveis — AT-2026-11-22-01
+
+- [x] Correção técnica proposta em branch/PR: cancelar corpo HTTP mesmo quando o status de um caminho sensível é diferente de 404, sem ler nem registrar conteúdo.
+- [x] Teste de regressão proposto para 404 e 200 inesperado, incluindo ausência de leitura do corpo.
+- [ ] CI do PR e execução externa efetiva dos seis probes nos dois domínios: confirmar antes de declarar aceitação operacional.
+- [ ] Issue #53 permanece aberta até todos os critérios de segurança serem comprovados; issue #1 e Mestre v19 integral continuam bloqueando a auditoria funcional.
+- **Sem alteração de escopo:** 17 jornadas, 43 telas-base e 107 ações são inventário documental, não funcionalidades homologadas. Nenhum fluxo financeiro ou contratual habilitado.
+
+Referência: `docs/adendos/AT-2026-11-22-01-response-cleanup.md`.
