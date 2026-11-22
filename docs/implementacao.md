@@ -147,3 +147,12 @@ Referência: `docs/adendos/AT-2026-11-21-02-monitor-headers.md`. Esta alteraçã
 - [ ] Auditoria das 17 jornadas, 43 telas-base e 107 ações continua bloqueada pela ausência da fonte integral controlada do Mestre v19 (issue #1). Nenhuma porcentagem funcional atribuída.
 
 Adendo: `docs/adendos/AT-2026-11-21-03-monitor-regression.md`.
+
+## Verificação externa de caminhos sensíveis — AT-2026-11-21-04 (PR em revisão)
+
+- [ ] Proposta: script `scripts/check-public-sensitive-paths.mjs` com três sondagens sintéticas e testes isolados, executado independentemente nos dois jobs do monitor público.
+- [ ] Exigir CI aprovado, merge e execução externa comprovada antes de marcar verificação operacional. Status 404 em três caminhos não equivale a auditoria completa nem fecha automaticamente a issue #53.
+- [ ] Issue #1 e rastreabilidade funcional continuam bloqueadas: 17 jornadas, 43 telas-base e 107 ações são inventário documental, não percentual desenvolvido.
+- [ ] Nenhuma rota comercial, integração financeira, contrato ou dado pessoal foi habilitado.
+
+Referência: `docs/adendos/AT-2026-11-21-04-sensitive-path-monitor.md`.
