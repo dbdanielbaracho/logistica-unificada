@@ -167,3 +167,11 @@ Referência: `docs/adendos/AT-2026-11-21-04-sensitive-path-monitor.md`.
 - **Sem alteração de escopo:** 17 jornadas, 43 telas-base e 107 ações são inventário documental, não funcionalidades homologadas. Nenhum fluxo financeiro ou contratual habilitado.
 
 Referência: `docs/adendos/AT-2026-11-22-01-response-cleanup.md`.
+
+## Contrato estático do CI — AT-2026-11-22-02 (PR em revisão)
+
+- [ ] Teste isolado `tests/ci-quality-gates-contract.test.mjs` proposto para proteger gatilhos push/PR da main, permissões read-only, Node 22 e comandos test/lint/build; aguarda execução hospedada, revisão e merge.
+- [ ] Não equivale a comprovação de execução CI nem a homologação funcional. Reaplicação seletiva do PR histórico #54, sem reintroduzir mudanças já incorporadas.
+- [ ] Mestre v19 integral (issue #1) e conclusão das 17 jornadas, 43 telas-base e 107 ações permanecem não auditados. Operações financeiras e comerciais não homologadas continuam bloqueadas.
+
+Referência: `docs/adendos/AT-2026-11-22-02-ci-contract.md`.
