@@ -16,11 +16,15 @@ export async function checkPublicSensitivePaths(baseUrl, fetcher = fetch) {
       const response = await fetcher(new URL(path, origin), {
         method: 'GET', signal: controller.signal, redirect: 'error', cache: 'no-store',
       });
-      if (response.status !== 404) {
-        throw new Error('Unexpected status for protected path: ' + path + ' (' + response.status + ')');
+      // Release the response stream even when the status is unexpected.
+      // Never read or log response bodies, which could contain sensitive data.
+      try {
+        if (response.status !== 404) {
+          throw new Error('Unexpected status for protected path: ' + path + ' (' + response.status + ')');
+        }
+      } finally {
+        await response.body?.cancel?.();
       }
-      // Do not inspect or log the body: only the HTTP status is asserted.
-      await response.body?.cancel?.();
     } finally {
       clearTimeout(timer);
     }
