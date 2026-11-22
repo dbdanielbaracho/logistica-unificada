@@ -33,3 +33,20 @@ test('stops after the first failing path', async () => {
   }));
   assert.equal(count, 2);
 });
+
+test('releases response bodies on both success and unexpected status without reading them', async () => {
+  let canceled = 0;
+  let read = 0;
+  const body = {
+    cancel: async () => { canceled++; },
+    text: async () => { read++; throw Error('body must never be read'); },
+  };
+  await checkPublicSensitivePaths('https://example.org', async () => ({ status: 404, body }));
+  assert.equal(canceled, SENSITIVE_PATHS.length);
+  await assert.rejects(
+    checkPublicSensitivePaths('https://example.org', async () => ({ status: 200, body })),
+    /Unexpected status/,
+  );
+  assert.equal(canceled, SENSITIVE_PATHS.length + 1);
+  assert.equal(read, 0);
+});
