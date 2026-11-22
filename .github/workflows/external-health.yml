@@ -30,6 +30,10 @@ jobs:
         env:
           SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
         run: node scripts/check-public-security-headers.mjs
+      - name: Check Railway sensitive paths return 404
+        env:
+          SMOKE_BASE_URL: https://logistica-web-production-cfbeefaa.up.railway.app
+        run: node scripts/check-public-sensitive-paths.mjs
   custom-domain-health:
     name: Check custom-domain public health
     runs-on: ubuntu-latest
@@ -47,3 +51,7 @@ jobs:
         env:
           SMOKE_BASE_URL: https://lu.predibeacon.com
         run: node scripts/check-public-security-headers.mjs
+      - name: Check custom-domain sensitive paths return 404
+        env:
+          SMOKE_BASE_URL: https://lu.predibeacon.com
+        run: node scripts/check-public-sensitive-paths.mjs
