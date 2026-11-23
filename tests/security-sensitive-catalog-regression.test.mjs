@@ -7,7 +7,8 @@ test('sensitive-path catalog is immutable, unique and limited to absolute paths'
   assert.ok(sensitivePaths.length > 0);
   assert.equal(new Set(sensitivePaths).size, sensitivePaths.length);
   for (const path of sensitivePaths) {
-    assert.match(path, /^\/[a-zA-Z0-9._/-]+$/);
+    assert.equal(path.startsWith('/'), true);
+    assert.ok(path.split('/').every(segment => /^[a-zA-Z0-9._-]*$/.test(segment)));
     assert.equal(path.startsWith('//'), false);
     assert.equal(path.split('/').includes('..'), false);
     assert.equal(path.split('/').includes('.'), false);
