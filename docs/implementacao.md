@@ -175,3 +175,11 @@ Referência: `docs/adendos/AT-2026-11-22-01-response-cleanup.md`.
 - [ ] Mestre v19 integral (issue #1) e conclusão das 17 jornadas, 43 telas-base e 107 ações permanecem não auditados. Operações financeiras e comerciais não homologadas continuam bloqueadas.
 
 Referência: `docs/adendos/AT-2026-11-22-02-ci-contract.md`.
+
+
+## Contrato de CI manual e timeout — AT-2026-11-22-03 (PR em revisão)
+
+- [ ] Teste de regressão proposto em `tests/ci-manual-timeout-contract.test.mjs`: preservar `workflow_dispatch`, permissões de leitura e timeout de 1 a 30 minutos no job Quality gates.
+- [ ] Aceite exige execução real do CI (`npm test`, `npm run lint`, `npm run build`), revisão e merge. Teste estático não prova execução de workflow.
+- [ ] Sem impacto no inventário funcional de 17 jornadas, 43 telas-base e 107 ações; conclusão N/D. Issue #1 e homologações comerciais permanecem bloqueadas.
+- Referência: `docs/adendos/AT-2026-11-22-03-ci-manual-timeout.md`.
