@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {categories, fixtures} from './fixtures/synthetic-scenarios.mjs';
-test('420 deterministic isolated fixtures',()=>{
+test('510 deterministic isolated fixtures',()=>{
  const data=fixtures(); assert.deepEqual(data,fixtures());
- const all=Object.values(data).flat(); assert.equal(all.length,420);
- assert.equal(new Set(all.map(x=>x.id)).size,420);
+ const all=Object.values(data).flat(); assert.equal(all.length,510);
+ assert.equal(new Set(all.map(x=>x.id)).size,510);
  for(const category of categories){
   const rows=data[category]; assert.equal(rows.length,30);
   for(const scenario of ['positivo','negativo','limite']) assert.equal(rows.filter(x=>x.scenario===scenario).length,10);
@@ -23,4 +23,12 @@ test('search fixtures cover documented radii and optional destination',()=>{
  assert.deepEqual([...new Set(rows.filter(x=>x.scenario==='positivo').map(x=>x.input.raio))].sort((a,b)=>a-b),[50,100,200]);
  assert.ok(rows.some(x=>x.input.destino===undefined));
  assert.ok(rows.filter(x=>x.scenario==='negativo').every(x=>x.input.origem==='' && x.input.raio===-1));
+});
+
+test('additional fixtures isolate identities, documents and notifications',()=>{
+ const data=fixtures();
+ const users=new Set(data.usuarios.map(x=>x.id));
+ for(const row of data.usuarios) assert.ok(row.input.email===null || row.input.email.endsWith('@example.invalid'));
+ for(const row of data.documentacoesFicticias){assert.equal(row.input.verified,false); assert.equal(row.scenario==='negativo',row.input.ownerId===null); if(row.input.ownerId!==null) assert.ok(users.has(row.input.ownerId));}
+ for(const row of data.notificacoes){assert.equal(row.input.deliveryEnabled,false); assert.equal(row.scenario==='negativo',row.input.recipientId===null); if(row.input.recipientId!==null) assert.ok(users.has(row.input.recipientId));}
 });
