@@ -1,0 +1,3 @@
+# AT-2026-11-26 — ciclo de vida de sessão
+
+Controle técnico de segurança conforme AGENTS.md e pendência de autenticação em docs/implementacao.md; sem mudança de jornada, tela, ação ou regra comercial do Mestre v19. Serviço isolado com repositório injetado, digest persistível, expiração absoluta configurável, revogação idempotente e rejeição de registros inválidos. O prazo é parâmetro técnico obrigatório, não política comercial definida. Testes com 30 identificadores sintéticos determinísticos e tokens aleatórios, repositório em memória exclusivo de testes. Sem rotas públicas, cookies, dados reais, pagamentos ou contratos. Persistência durável, transações, integração de login, autorização e homologação permanecem pendentes. Aceite desta etapa: CI aprovado antes do merge.
